@@ -62,7 +62,7 @@ int strhandler(va_list args)
 	s = va_arg(args, char *);
 	if (s == NULL)
 	{
-		s = "null";
+		s = "(null)";
 	}
 	k += _printstr(s);
 	return (k);
