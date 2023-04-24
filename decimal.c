@@ -9,15 +9,24 @@ int _print_int(int n)
 	int i = 0;
 	static int z = -1;
 
-	if (n < 0)
+	if (n == INT_MIN)
 	{
 		z += _print('-');
-		n *= -1;
+		z += _print_Uint(2147483648);
+		z++;
 	}
-	i =  n / 10;
-	if (i > 0)
-		_print_int(i);
-	z += _print((n % 10) + '0');
+	else
+	{
+		if (n < 0)
+		{
+			z += _print('-');
+			n *= -1;
+		}
+		i =  n / 10;
+		if (i > 0)
+			_print_int(i);
+		z += _print((n % 10) + '0');
+	}
 	return (z);
 }
 /**
