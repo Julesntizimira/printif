@@ -44,9 +44,8 @@ int _printstr(char *s)
 int charhandler(va_list args)
 {
 	int k = 0;
-	char c;
-
-	c = va_arg(args, int);
+	char c = va_arg(args, int);
+	
 	k += _print(c);
 	return (k);
 }
