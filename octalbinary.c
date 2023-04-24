@@ -38,7 +38,7 @@ int _binaryT(va_list args)
 int _print_octal(unsigned int n)
 {
 	int i = 0;
-	static int z = 0;
+	static int z = -1;
 
 	i =  n / 8;
 	if (i > 0)
@@ -48,7 +48,7 @@ int _print_octal(unsigned int n)
 }
 /**
  * _printoctal - receves a decimal and print it in octal
- * @rgs: va_list argument integer to be converted
+ * @args: va_list argument integer to be converted
  * Return: number of printed characters
  */
 int _printoctal(va_list args)
@@ -58,5 +58,5 @@ int _printoctal(va_list args)
 
 	n = va_arg(args, unsigned int);
 	z += _print_octal(n);
-	return(z);
+	return (z);
 }
