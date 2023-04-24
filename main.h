@@ -4,6 +4,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 
 #define BUFFER_SIZE 1024
 /**
@@ -29,6 +30,7 @@ int _binaryT(va_list args);
 int _print_octal(unsigned int n);
 int _printoctal(va_list args);
 int _print_hex(va_list args);
+int _print_hex1(va_list args);
 int _print_hexUpper(va_list args);
 int charhandler(va_list args);
 int strhandler(va_list args);

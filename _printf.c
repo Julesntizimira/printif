@@ -31,11 +31,14 @@ int _printf(const char *format, ...)
 		else if (format[i] == '%')
 		{
 			i++;
+			if (format[i] == '\0')
+			{
+				return (-1);
+			}
 			k += printhandler(args, format, i);
 		}
 		i++;
 	}
-	print_buffer(buffer, &buff_ind);
 	va_end(args);
 	return (k);
 }
@@ -55,7 +58,7 @@ int printhandler(va_list args, const char *format, int i)
 		{'d', _printint}, {'i', _printint},
 		{'%', _printmod}, {'b', _binaryT},
 		{'u', _printUint}, {'o', _printoctal},
-		{'x', _print_hex}, {'X', _print_hexUpper},
+		{'x', _print_hex1}, {'X', _print_hexUpper},
 		{'S', _nonprinthandler}, {'p', _print_hex}
 	};
 
@@ -68,4 +71,35 @@ int printhandler(va_list args, const char *format, int i)
 		}
 	}
 	return (k);
+}
+/**
+ * _print_hex1 - receives a decimal and prints a hexadecimal
+ * @args: va_list argument input decimal
+ * Return: numbner of characters printed
+ */
+int _print_hex1(va_list args)
+{
+	void *ptr = va_arg(args, void *);
+	unsigned long int num = (unsigned long int)ptr;
+	char hex_digits[] = "0123456789abcdef";
+	char hex_string[17] = {'\0'};
+	int i = 0, z = 0, j;
+
+	if (num == 0)
+	{
+		hex_string[i++] = '0';
+	}
+	else
+	{
+		while (num != 0)
+		{
+			hex_string[i++] = hex_digits[num % 16];
+			num /= 16;
+		}
+	}
+	for (j = i - 1; j >= 0; j--)
+	{
+		z += _print(hex_string[j]);
+	}
+	return (z);
 }

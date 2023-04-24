@@ -36,24 +36,29 @@ int hexUpper(int num)
  */
 int _print_hex(va_list args)
 {
-
-	unsigned int num = va_arg(args, unsigned int), z = 0;
-
+	void *ptr = va_arg(args, void *);
+	unsigned long int num = (unsigned long int)ptr;
 	char hex_digits[] = "0123456789abcdef";
-	char hex_string[9] = {'\0'};
-	unsigned int i = 7;
+	char hex_string[17] = {'\0'};
+	int i = 0, z = 0, j;
 
-	while (num != 0)
+	if (num == 0)
 	{
-		hex_string[i--] = hex_digits[num % 16];
-		num /= 16;
+		hex_string[i++] = '0';
 	}
-	for (i = 0; i < 8; i++)
+	else
 	{
-		if (hex_string[i] != '\0')
+		while (num != 0)
 		{
-			z += _print(hex_string[i]);
+			hex_string[i++] = hex_digits[num % 16];
+			num /= 16;
 		}
+	}
+	z += _printstr("0x");
+
+	for (j = i - 1; j >= 0; j--)
+	{
+		z += _print(hex_string[j]);
 	}
 	return (z);
 }

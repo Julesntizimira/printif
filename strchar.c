@@ -17,7 +17,7 @@ int _print(int c)
 int _printmod(va_list args)
 {
 	(void)args;
-	_print('%');
+	write(1, "%%", 1);
 	return (1);
 }
 /**
@@ -29,8 +29,6 @@ int _printstr(char *s)
 {
 	int j = 0;
 
-	if (s == NULL)
-		exit(1);
 	while (s[j] != '\0')
 	{
 		_print(s[j]);
@@ -63,6 +61,10 @@ int strhandler(va_list args)
 	char *s = NULL;
 
 	s = va_arg(args, char *);
+	if (s == NULL)
+	{
+		s = "null";
+	}
 	k += _printstr(s);
 	return (k);
 }
