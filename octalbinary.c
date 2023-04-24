@@ -29,6 +29,11 @@ int _binaryT(va_list args)
 	int i = 0, j, len;
 	char temp;
 
+	if (num == 0)
+	{
+		_print('0');
+		return (1);
+	}
 	while (num > 0)
 	{
 		binary[i++] = num % 2 + '0';
