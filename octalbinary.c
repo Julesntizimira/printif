@@ -1,31 +1,49 @@
 # include "main.h"
 /**
+ * _strlen - funct
+ * @s: string to compute the length
+ * Return: int
+ */
+int _strlen(char *s)
+{
+	int len = 0;
+
+	if (s == NULL)
+		return (0);
+	while (*s != '\0')
+	{
+		s++;
+		len++;
+	}
+	return (len);
+}
+/**
  * _binaryT - receves a va_list decimal arg and print it in binary
  * @args: decimal integer va_list argument to be converted
  * Return: number of printed characters
  */
 int _binaryT(va_list args)
 {
-	unsigned int n = va_arg(args, unsigned int);
-	int count = 0, i, k;
-	int leading_zero = 1;
+	unsigned int num = va_arg(args, unsigned int);
+	char binary[33];
+	int i = 0, j, len;
+	char temp;
 
-	for (i = 31; i >= 0; i--)
+	while (num > 0)
 	{
-		k = n >> i;
-		if (k & 1 || !leading_zero)
-		{
-			write(STDOUT_FILENO, (k & 1) ? "1" : "0", 1);
-			count++;
-			leading_zero = 0;
-		}
+		binary[i++] = num % 2 + '0';
+		num /= 2;
 	}
-	if (leading_zero)
+	binary[i] = '\0';
+
+	len = _strlen(binary);
+	for (j = 0; j < len / 2; j++)
 	{
-		write(STDOUT_FILENO, "0", 1);
-		count++;
+		temp = binary[j];
+		binary[j] = binary[len - j - 1];
+		binary[len - j - 1] = temp;
 	}
-	return (count - 1);
+	return (_printstr(binary));
 }
 /**
  * _print_octal - receves a decimal and print it in octal

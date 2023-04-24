@@ -19,6 +19,7 @@ typedef struct format
 } _fmt;
 
 int _print(int c);
+int _strlen(char *s);
 int _printmod(va_list args);
 int _printstr(char *s);
 int _print_int(int n);
