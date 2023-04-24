@@ -61,12 +61,17 @@ int printhandler(va_list args, const char *format, int i)
 		{'x', _print_hex1}, {'X', _print_hexUpper},
 		{'S', _nonprinthandler}, {'p', _print_hex}
 	};
-
 	for (j = 0; j < sizeof(fmt) / sizeof(fmt[0]); j++)
 	{
 		if (fmt[j].c == format[i])
 		{
 			k += fmt[j].ptr(args);
+			break;
+		}
+		else if (j == ((sizeof(fmt) / sizeof(fmt[0])) - 1))
+		{
+			k++;
+			k += _print(format[i]);
 			break;
 		}
 	}

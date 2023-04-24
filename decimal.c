@@ -47,7 +47,7 @@ int _printint(va_list args)
 	int n = va_arg(args, int);
 
 	i = _print_int(n);
-	return (i);
+	return (i + 1);
 }
 /**
  * _printUint - receives va_list argument and prints a positive integer
@@ -60,6 +60,6 @@ int _printUint(va_list args)
 	unsigned int n = va_arg(args, unsigned int);
 
 	i += _print_Uint(n);
-	return (i);
+	return (i + 1);
 }
 
