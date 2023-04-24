@@ -7,13 +7,12 @@
  */
 int _printbinary(int n)
 {
-	int i = 0;
-	static int z = -1;
+	int z = 0;
 
-	i =  n / 2;
-	if (i > 0)
-		_printbinary(i);
+	if (n >= 2)
+		z += _printbinary(n / 2);
 	z += _print((n % 2) + '0');
+
 	return (z);
 }
 /**
@@ -28,7 +27,7 @@ int _binaryT(va_list args)
 
 	n = va_arg(args, unsigned int);
 	z += _printbinary(n);
-	return (z);
+	return (z - 1);
 }
 /**
  * _print_octal - receves a decimal and print it in octal
