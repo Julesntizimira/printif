@@ -1,20 +1,4 @@
 # include "main.h"
-
-/**
- * _printbinary - receves a decimal and print it in binary
- * @n: integer to be converted
- * Return: number of printed characters
- */
-int _printbinary(int n)
-{
-	int z = 0;
-
-	if (n >= 2)
-		z += _printbinary(n / 2);
-	z += _print((n % 2) + '0');
-
-	return (z);
-}
 /**
  * _binaryT - receves a va_list decimal arg and print it in binary
  * @args: decimal integer va_list argument to be converted
@@ -22,11 +6,23 @@ int _printbinary(int n)
  */
 int _binaryT(va_list args)
 {
-	int z = 0;
-	unsigned int n;
+	unsigned int n = va_arg(args, unsigned int);
+	int z = 0, i, k;
 
-	n = va_arg(args, unsigned int);
-	z += _printbinary(n);
+	for (i = 31; i >= 0; i--)
+	{
+		k = n >> i;
+		if (k & 1)
+		{
+			write(STDOUT_FILENO, "1", 1);
+			z++;
+		}
+		else
+		{
+			write(STDOUT_FILENO, "0", 1);
+			z++;
+		}
+	}
 	return (z - 1);
 }
 /**
