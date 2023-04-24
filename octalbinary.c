@@ -7,23 +7,25 @@
 int _binaryT(va_list args)
 {
 	unsigned int n = va_arg(args, unsigned int);
-	int z = 0, i, k;
+	int count = 0, i, k;
+	int leading_zero = 1;
 
 	for (i = 31; i >= 0; i--)
 	{
 		k = n >> i;
-		if (k & 1)
+		if (k & 1 || !leading_zero)
 		{
-			write(STDOUT_FILENO, "1", 1);
-			z++;
-		}
-		else
-		{
-			write(STDOUT_FILENO, "0", 1);
-			z++;
+			write(STDOUT_FILENO, (k & 1) ? "1" : "0", 1);
+			count++;
+			leading_zero = 0;
 		}
 	}
-	return (z - 1);
+	if (leading_zero)
+	{
+		write(STDOUT_FILENO, "0", 1);
+		count++;
+	}
+	return (count - 1);
 }
 /**
  * _print_octal - receves a decimal and print it in octal
