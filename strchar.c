@@ -45,7 +45,7 @@ int charhandler(va_list args)
 {
 	int k = 0;
 	char c = va_arg(args, int);
-	
+
 	k += _print(c);
 	return (k);
 }
