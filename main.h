@@ -17,15 +17,6 @@ typedef struct format
 	int (*ptr)(va_list args);
 } _fmt;
 
-_fmt fmt[] = {
-	{'c', charhandler}, {'s', strhandler},
-	{'d', _printint}, {'i', _printint},
-	{'%', _printmod}, {'b', _binaryT},
-	{'u', _printUint}, {'o', _printoctal},
-	{'x', _print_hex}, {'X', _print_hexUpper},
-	{'S', _nonprinthandler}, {'p', _print_hex}
-};
-
 int _print(int c);
 int _printmod(va_list args);
 int _printstr(char *s);
@@ -47,5 +38,4 @@ int printhandler(va_list args, const char *format, int i);
 void print_buffer(char buffer[], int *buff_ind);
 int _nonprinthandler(va_list args);
 int __nonprintchars(char *s);
-
 # endif

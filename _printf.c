@@ -26,15 +26,16 @@ int _printf(const char *format, ...)
 				print_buffer(buffer, &buff_ind);
 			}
 			k++;
+			print_buffer(buffer, &buff_ind);
 		}
 		if (format[i] == '%')
 		{
 			i++;
 			k += printhandler(args, format, i);
+			print_buffer(buffer, &buff_ind);
 		}
 		i++;
 	}
-	print_buffer(buffer, &buff_ind);
 	va_end(args);
 	return (k);
 }
@@ -49,6 +50,14 @@ int printhandler(va_list args, const char *format, int i)
 {
 	unsigned long int j;
 	int k = 0;
+	_fmt fmt[] = {
+		{'c', charhandler}, {'s', strhandler},
+		{'d', _printint}, {'i', _printint},
+		{'%', _printmod}, {'b', _binaryT},
+		{'u', _printUint}, {'o', _printoctal},
+		{'x', _print_hex}, {'X', _print_hexUpper},
+		{'S', _nonprinthandler}, {'p', _print_hex}
+	};
 
 	for (j = 0; j < sizeof(fmt) / sizeof(fmt[0]); j++)
 	{
