@@ -76,8 +76,10 @@ int printhandler(va_list args, const char *format, int i)
 		}
 		else if (j == ((sizeof(fmt) / sizeof(fmt[0])) - 1))
 		{
+			write(1, &format[i - 1], 1);
 			k++;
-			k += _print(format[i]);
+			write(1, &format[i], 1);
+			k++;
 			break;
 		}
 	}
