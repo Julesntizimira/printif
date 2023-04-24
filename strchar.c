@@ -31,7 +31,7 @@ int _printstr(char *s)
 
 	while (s[j] != '\0')
 	{
-		_print(s[j]);
+		write(1, &s[j], 1);
 		j++;
 	}
 	return (j);
@@ -43,11 +43,11 @@ int _printstr(char *s)
  */
 int charhandler(va_list args)
 {
-	int k = 0;
 	char c = va_arg(args, int);
 
-	k += _print(c);
-	return (k);
+	write(1, &c, 1);
+
+	return (1);
 }
 /**
  * strhandler - function that prints string
