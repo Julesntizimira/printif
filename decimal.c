@@ -6,8 +6,8 @@
  */
 int _print_int(int n)
 {
-	int i = 0;
-	static int z = -1;
+	int z = 0;
+	int temp, i;
 
 	if (n == INT_MIN)
 	{
@@ -22,13 +22,19 @@ int _print_int(int n)
 			z += _print('-');
 			n *= -1;
 		}
-		i =  n / 10;
+		temp = n;
+		do {
+			temp /= 10;
+			z++;
+		} while (temp != 0);
+		i = n / 10;
 		if (i > 0)
 			_print_int(i);
 		z += _print((n % 10) + '0');
 	}
 	return (z);
 }
+
 /**
  * _print_Uint - a function that prints a positive integer
  * @n: input unsigned integer
@@ -37,11 +43,16 @@ int _print_int(int n)
 int _print_Uint(unsigned int n)
 {
 	unsigned int i = 0;
-	static int z = -1;
+	int z = -1, temp = 0;
 
-	i =  n / 10;
+	temp = n;
+	do {
+		temp /= 10;
+		z++;
+	} while (temp != 0);
+	i = n / 10;
 	if (i > 0)
-		_print_Uint(i);
+		_print_int(i);
 	z += _print((n % 10) + '0');
 	return (z);
 }
@@ -56,7 +67,7 @@ int _printint(va_list args)
 	int n = va_arg(args, int);
 
 	i = _print_int(n);
-	return (i + 1);
+	return (i - 1);
 }
 /**
  * _printUint - receives va_list argument and prints a positive integer
@@ -69,6 +80,6 @@ int _printUint(va_list args)
 	unsigned int n = va_arg(args, unsigned int);
 
 	i += _print_Uint(n);
-	return (i + 1);
+	return (i - 1);
 }
 
