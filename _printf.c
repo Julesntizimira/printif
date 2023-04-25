@@ -97,6 +97,11 @@ int _print_hex1(va_list args)
 	char temp;
 	int i = 0, digit, len;
 
+	if (num == 0)
+	{
+		_print('0');
+		return (1);
+	}
 	while (num > 0)
 	{
 		digit = num % 16;
