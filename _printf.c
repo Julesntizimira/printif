@@ -10,10 +10,9 @@ int _printf(const char *format, ...)
 
 	int i = 0, k = 0;
 	va_list args;
-/*
- * int buff_ind = 0;
- * char buffer[BUFFER_SIZE];
- */
+	int buff_ind = 0;
+	char buffer[BUFFER_SIZE];
+
 
 	va_start(args, format);
 	if (!format)
@@ -23,15 +22,14 @@ int _printf(const char *format, ...)
 	{
 		if (format[i] != '%')
 		{
-/*
- * buffer[buff_ind++] = format[i];
- * if (buff_ind == BUFFER_SIZE)
- * {
- * print_buffer(buffer, &buff_ind);
- * }
- * print_buffer(buffer, &buff_ind);
- */
-			write(1, &format[i], 1);
+			buffer[buff_ind++] = format[i];
+			if (buff_ind == BUFFER_SIZE)
+			{
+				print_buffer(buffer, &buff_ind);
+			}
+			print_buffer(buffer, &buff_ind);
+
+			/*write(1, &format[i], 1);*/
 			k++;
 		}
 		else if (format[i] == '%')
