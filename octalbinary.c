@@ -50,22 +50,7 @@ int _binaryT(va_list args)
 	}
 	return (_printstr(binary));
 }
-/**
- * _print_octal - receves a decimal and print it in octal
- * @n: integer to be converted
- * Return: number of printed characters
- */
-int _print_octal(unsigned int n)
-{
-	int i = 0;
-	static int z = -1;
 
-	i =  n / 8;
-	if (i > 0)
-		_print_octal(i);
-	z += _print((n % 8) + '0');
-	return (z);
-}
 /**
  * _printoctal - receves a decimal and print it in octal
  * @args: va_list argument integer to be converted
@@ -73,10 +58,29 @@ int _print_octal(unsigned int n)
  */
 int _printoctal(va_list args)
 {
-	int z = 0;
-	unsigned int n;
+	unsigned int num = va_arg(args, unsigned int);
+	char binary[33];
+	int i = 0, j = 0, len = 0;
+	char temp;
 
-	n = va_arg(args, unsigned int);
-	z += _print_octal(n);
-	return (z);
+	if (num == 0)
+	{
+		_print('0');
+		return (1);
+	}
+	while (num > 0)
+	{
+		binary[i++] = num % 8 + '0';
+		num /= 8;
+	}
+	binary[i] = '\0';
+
+	len = _strlen(binary);
+	for (j = 0; j < len / 2; j++)
+	{
+		temp = binary[j];
+		binary[j] = binary[len - j - 1];
+		binary[len - j - 1] = temp;
+	}
+	return (_printstr(binary));
 }
