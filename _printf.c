@@ -8,11 +8,10 @@
 int _printf(const char *format, ...)
 {
 
-	int i = 0, k = 0;
+	int i = 0, k = 0, v = 0;
 	va_list args;
 	int buff_ind = 0;
 	char buffer[BUFFER_SIZE];
-
 
 	va_start(args, format);
 	if (!format)
@@ -24,11 +23,7 @@ int _printf(const char *format, ...)
 		{
 			buffer[buff_ind++] = format[i];
 			if (buff_ind == BUFFER_SIZE)
-			{
 				print_buffer(buffer, &buff_ind);
-			}
-
-			/*write(1, &format[i], 1);*/
 			k++;
 		}
 		else if (format[i] == '%')
@@ -36,8 +31,13 @@ int _printf(const char *format, ...)
 			print_buffer(buffer, &buff_ind);
 			i++;
 			if (format[i] == '\0')
-			{
 				return (-1);
+			v = printflags(args, format, i);
+			if (v != 0)
+			{
+				if (k != -1)
+					k += v;
+				i++;
 			}
 			k += printhandler(args, format, i);
 		}
@@ -45,6 +45,32 @@ int _printf(const char *format, ...)
 	}
 	print_buffer(buffer, &buff_ind);
 	va_end(args);
+	return (k);
+}
+/**
+ * printflags - handle printing
+ * @args: va_list input
+ * @format: format string
+ * @i: index input
+ * Return: number of character printed
+ */
+int printflags(va_list args, const char *format, int i)
+{
+	unsigned long int j;
+	int k = 0;
+	_flag flags[] = {
+		{'+', printplus},
+		{'#', printhash},
+		{' ', printspace}
+	};
+	for (j = 0; j < sizeof(flags) / sizeof(flags[0]); j++)
+	{
+		if (flags[j].c == format[i])
+		{
+			k += flags[j].ptr(args, format, i);
+			break;
+		}
+	}
 	return (k);
 }
 /**

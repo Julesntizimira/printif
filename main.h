@@ -17,6 +17,16 @@ typedef struct format
 	char c;
 	int (*ptr)(va_list args);
 } _fmt;
+/**
+ * struct flag - struct type
+ * @c: member
+ * @ptr: function pointer
+ */
+typedef struct flag
+{
+        char c;
+        int (*ptr)(va_list args, const char *format, int i);
+} _flag;
 
 int _print(int c);
 int _strlen(char *s);
@@ -41,4 +51,8 @@ int printhandler(va_list args, const char *format, int i);
 void print_buffer(char buffer[], int *buff_ind);
 int _nonprinthandler(va_list args);
 int __nonprintchars(char *s);
+int printflags(va_list args, const char *format, int i);
+int printhash(va_list args, const char *format, int i);
+int printplus(va_list args, const char *format, int i);
+int printspace(va_list args, const char *format, int i);
 # endif
