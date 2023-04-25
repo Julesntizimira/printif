@@ -59,8 +59,8 @@ int _binaryT(va_list args)
 int _printoctal(va_list args)
 {
 	unsigned int num = va_arg(args, unsigned int);
-	char binary[33];
-	int i = 0, j = 0, len = 0;
+	char oct_str[12];
+	int i = 0, len, digit;
 	char temp;
 
 	if (num == 0)
@@ -70,17 +70,19 @@ int _printoctal(va_list args)
 	}
 	while (num > 0)
 	{
-		binary[i++] = num % 8 + '0';
+		digit = num % 8;
+		oct_str[i++] = '0' + digit;
 		num /= 8;
 	}
-	binary[i] = '\0';
-
-	len = _strlen(binary);
-	for (j = 0; j < len / 2; j++)
+	oct_str[i] = '\0';
+	len = i;
+	i = 0;
+	while (i < len / 2)
 	{
-		temp = binary[j];
-		binary[j] = binary[len - j - 1];
-		binary[len - j - 1] = temp;
+		temp = oct_str[i];
+		oct_str[i] = oct_str[len - i - 1];
+		oct_str[len - i - 1] = temp;
+		i++;
 	}
-	return (_printstr(binary));
+	return (_printstr(oct_str));
 }
