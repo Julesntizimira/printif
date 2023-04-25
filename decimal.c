@@ -59,28 +59,49 @@ int _print_Uint(unsigned int n)
 /**
  * _printint - a function that receives va_list argument and prints an integer
  * @args: va_list int argument
+ * @flags: Flags
+ * @width: width
+ * @precision: precision
+ * @size: size
+ *
  * Return: number of character printed
  */
-int _printint(va_list args)
+int _printint(va_list args, int flags, int width, int precision, int size)
 {
 	int i = 0;
 	int n = va_arg(args, int);
 
+	(void)width;
+	(void)precision;
+	(void)size;
+	if (flags & F_PLUS && n >= 0)
+		i += _print('+');
+
+	else if (flags & F_SPACE && n >= 0)
+		i += _print(' ');
 	i = _print_int(n);
 	return (i - 1);
 }
 /**
  * _printUint - receives va_list argument and prints a positive integer
  * @args: va_list unsigned int argument
+ * @flags: Flags
+ * @width: width
+ * @precision: precision
+ * @size: size
  * Return: number of character printed
  */
-int _printUint(va_list args)
+int _printUint(va_list args, int flags, int width, int precision, int size)
 {
 	unsigned int num = va_arg(args, unsigned int);
 	char dec_str[11];
 	char temp;
 	int i = 0, digit, len;
 
+	(void)flags;
+	(void)width;
+	(void)precision;
+	(void)size;
 	if (num == 0)
 	{
 		dec_str[i++] = '0';

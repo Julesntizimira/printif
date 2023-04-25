@@ -20,14 +20,23 @@ int _strlen(char *s)
 /**
  * _binaryT - receves a va_list decimal arg and print it in binary
  * @args: decimal integer va_list argument to be converted
+ * @flags: Flags
+ * @width: width
+ * @precision: precision
+ * @size: size
  * Return: number of printed characters
  */
-int _binaryT(va_list args)
+int _binaryT(va_list args, int flags, int width, int precision, int size)
 {
 	unsigned int num = va_arg(args, unsigned int);
 	char binary[33];
 	int i = 0, j, len;
 	char temp;
+
+	(void)width;
+	(void)precision;
+	(void)size;
+	(void)flags;
 
 	if (num == 0)
 	{
@@ -54,16 +63,24 @@ int _binaryT(va_list args)
 /**
  * _printoctal - receves a decimal and print it in octal
  * @args: va_list argument integer to be converted
+ * @flags: Flags
+ * @width: width
+ * @precision: precision
+ * @size: size
  * Return: number of printed characters
  */
-int _printoctal(va_list args)
+int _printoctal(va_list args, int flags, int width, int precision, int size)
 {
 	unsigned int num = va_arg(args, unsigned int);
 	char oct_str[12];
 	int i = 0, len, digit;
 	char temp;
 
-	if (num == 0)
+	(void)width;
+	(void)precision;
+	(void)size;
+
+	if (num == 0 && !(flags & F_HASH))
 	{
 		_print('0');
 		return (1);
@@ -74,6 +91,8 @@ int _printoctal(va_list args)
 		oct_str[i++] = '0' + digit;
 		num /= 8;
 	}
+	if (flags & F_HASH && oct_str[i - 1] != '0')
+		oct_str[i++] = '0';
 	oct_str[i] = '\0';
 	len = i;
 	i = 0;

@@ -8,9 +8,10 @@
 int _printf(const char *format, ...)
 {
 
-	int i = 0, k = 0, v = 0;
+	int i = 0, k = 0;
+	int size = 0, precision = 0, width = 0;
 	va_list args;
-	int buff_ind = 0;
+	int buff_ind = 0, flags;
 	char buffer[BUFFER_SIZE];
 
 	va_start(args, format);
@@ -29,17 +30,12 @@ int _printf(const char *format, ...)
 		else if (format[i] == '%')
 		{
 			print_buffer(buffer, &buff_ind);
-			i++;
-			if (format[i] == '\0')
+			if (format[i + 1] == '\0')
 				return (-1);
-			v = printflags(args, format, i);
-			if (v != 0)
-			{
-				if (k != -1)
-					k += v;
-				i++;
-			}
-			k += printhandler(args, format, i);
+			flags  = calc_flags(format, &i);
+			i++;
+			k += printhandler(args, format,
+					i, flags, width, precision, size);
 		}
 		i++;
 	}
@@ -48,39 +44,18 @@ int _printf(const char *format, ...)
 	return (k);
 }
 /**
- * printflags - handle printing
- * @args: va_list input
- * @format: format string
- * @i: index input
- * Return: number of character printed
- */
-int printflags(va_list args, const char *format, int i)
-{
-	unsigned long int j;
-	int k = 0;
-	_flag flags[] = {
-		{'+', printplus},
-		{'#', printhash},
-		{' ', printspace}
-	};
-	for (j = 0; j < sizeof(flags) / sizeof(flags[0]); j++)
-	{
-		if (flags[j].c == format[i])
-		{
-			k += flags[j].ptr(args, format, i);
-			break;
-		}
-	}
-	return (k);
-}
-/**
  * printhandler - handle printing
  * @args: va_list input
  * @format: format string
  * @i: index input
+ * @flags: Flags
+ * @width: width
+ * @precision: precision
+ * @size: size
  * Return: number of character printed
  */
-int printhandler(va_list args, const char *format, int i)
+int printhandler(va_list args, const char *format,
+		int i, int flags,  int width, int precision, int size)
 {
 	unsigned long int j;
 	int k = 0;
@@ -96,7 +71,7 @@ int printhandler(va_list args, const char *format, int i)
 	{
 		if (fmt[j].c == format[i])
 		{
-			k += fmt[j].ptr(args);
+			k += fmt[j].ptr(args, flags, width, precision, size);
 			break;
 		}
 		else if (j == ((sizeof(fmt) / sizeof(fmt[0])) - 1))
@@ -113,15 +88,21 @@ int printhandler(va_list args, const char *format, int i)
 /**
  * _print_hex1 - receives a decimal and prints a hexadecimal
  * @args: va_list argument input decimal
+ * @flags: Flags
+ * @width: width
+ * @precision: precision
+ * @size: size
  * Return: numbner of characters printed
  */
-int _print_hex1(va_list args)
+int _print_hex1(va_list args, int flags, int width, int precision, int size)
 {
 	unsigned int num = va_arg(args, unsigned int);
-	char hex_str[9];
-	char temp;
-	int i = 0, digit, len;
+	char hex_str[9], temp;
+	int i = 0, digit, len, printed = 0;
 
+	(void)width;
+	(void)precision;
+	(void)size;
 	if (num == 0)
 	{
 		_print('0');
@@ -131,13 +112,9 @@ int _print_hex1(va_list args)
 	{
 		digit = num % 16;
 		if (digit < 10)
-		{
 			hex_str[i++] = '0' + digit;
-		}
 		else
-		{
 			hex_str[i++] = 'a' + digit - 10;
-		}
 		num /= 16;
 	}
 	hex_str[i] = '\0';
@@ -150,5 +127,11 @@ int _print_hex1(va_list args)
 		hex_str[len - i - 1] = temp;
 		i++;
 	}
-	return (_printstr(hex_str));
+	if (flags & F_HASH)
+	{
+		_print('0');
+		_print('x');
+	}
+	printed += _printstr(hex_str);
+	return (printed + 2);
 }
