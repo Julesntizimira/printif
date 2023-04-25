@@ -92,27 +92,37 @@ int printhandler(va_list args, const char *format, int i)
  */
 int _print_hex1(va_list args)
 {
-	void *ptr = va_arg(args, void *);
-	unsigned long int num = (unsigned long int)ptr;
-	char hex_digits[] = "0123456789abcdef";
-	char hex_string[17] = {'\0'};
-	int i = 0, z = 0, j;
+	unsigned int num = va_arg(args, unsigned int);
+	char hex[17] = {0};
+	int i = 0, j = 0, rem, len = 0;
+	char temp;
 
 	if (num == 0)
 	{
-		hex_string[i++] = '0';
+		_print('0');
+		return (1);
 	}
-	else
+	while (num > 0)
 	{
-		while (num != 0)
+		rem = num % 16;
+		if (rem < 10)
 		{
-			hex_string[i++] = hex_digits[num % 16];
-			num /= 16;
+			hex[i++] = rem + '0';
 		}
+		else
+		{
+			hex[i++] = rem - 10 + 'a';
+		}
+		num /= 16;
 	}
-	for (j = i - 1; j >= 0; j--)
+	hex[i] = '\0';
+
+	len = _strlen(hex);
+	for (j = 0; j < len / 2; j++)
 	{
-		z += _print(hex_string[j]);
+		temp = hex[j];
+		hex[j] = hex[len - j - 1];
+		hex[len - j - 1] = temp;
 	}
-	return (z);
+	return (_printstr(hex));
 }
