@@ -70,9 +70,9 @@ int _print_hex(va_list args)
 int _print_hexUpper(va_list args)
 {
 	unsigned int num = va_arg(args, unsigned int);
-	char hex[17] = {0};
-	int i = 0, j = 0, rem, len = 0;
+	char hex_str[9];
 	char temp;
+	int i = 0, digit, len;
 
 	if (num == 0)
 	{
@@ -81,26 +81,28 @@ int _print_hexUpper(va_list args)
 	}
 	while (num > 0)
 	{
-		rem = num % 16;
-		if (rem < 10)
+		digit = num % 16;
+		if (digit < 10)
 		{
-			hex[i++] = rem + '0';
+			hex_str[i++] = '0' + digit;
 		}
 		else
 		{
-			hex[i++] = rem - 10 + 'A';
+			hex_str[i++] = 'A' + digit - 10;
 		}
 		num /= 16;
 	}
-	hex[i] = '\0';
-	len = _strlen(hex);
-	for (j = 0; j < len / 2; j++)
+	hex_str[i] = '\0';
+	len = i;
+	i = 0;
+	while (i < len / 2)
 	{
-		temp = hex[j];
-		hex[j] = hex[len - j - 1];
-		hex[len - j - 1] = temp;
+		temp = hex_str[i];
+		hex_str[i] = hex_str[len - i - 1];
+		hex_str[len - i - 1] = temp;
+		i++;
 	}
-	return (_printstr(hex));
+	return (_printstr(hex_str));
 }
 /**
  * _nonprintchars - receives a nonprintable character and prints UPPERCASE hex
