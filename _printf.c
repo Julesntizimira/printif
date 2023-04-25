@@ -27,13 +27,13 @@ int _printf(const char *format, ...)
 			{
 				print_buffer(buffer, &buff_ind);
 			}
-			print_buffer(buffer, &buff_ind);
 
 			/*write(1, &format[i], 1);*/
 			k++;
 		}
 		else if (format[i] == '%')
 		{
+			print_buffer(buffer, &buff_ind);
 			i++;
 			if (format[i] == '\0')
 			{
@@ -43,6 +43,7 @@ int _printf(const char *format, ...)
 		}
 		i++;
 	}
+	print_buffer(buffer, &buff_ind);
 	va_end(args);
 	return (k);
 }
