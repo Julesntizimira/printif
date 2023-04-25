@@ -27,7 +27,7 @@ int _printmod(va_list args, int flags, int width, int precision, int size)
 	(void)size;
 	(void)flags;
 
-	write(1,"%%", 1);
+	write(1, "%%", 1);
 	return (1);
 }
 /**
