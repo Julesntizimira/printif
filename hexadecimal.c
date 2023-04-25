@@ -6,28 +6,39 @@
  */
 int hexUpper(int num)
 {
-	int z = 0;
+	char hex_str[9];
+	char temp;
+	int i = 0, digit, len;
 
-	char hex_digits[] = "0123456789abcdef";
-	char hex_string[9] = {'\0'};
-	int i = 7;
-
-	while (num != 0)
+	if (num == 0)
 	{
-		hex_string[i--] = hex_digits[num % 16];
+		_print('0');
+		return (1);
+	}
+	while (num > 0)
+	{
+		digit = num % 16;
+		if (digit < 10)
+		{
+			hex_str[i++] = '0' + digit;
+		}
+		else
+		{
+			hex_str[i++] = 'A' + digit - 10;
+		}
 		num /= 16;
 	}
-	for (i = 0; i < 8; i++)
+	hex_str[i] = '\0';
+	len = i;
+	i = 0;
+	while (i < len / 2)
 	{
-		if (hex_string[i] != '\0')
-		{
-			if (hex_string[i]  >= '0' && hex_string[i]  <= '9')
-				z += _print(hex_string[i]);
-			else
-				z += _print((hex_string[i]) - 32);
-		}
+		temp = hex_str[i];
+		hex_str[i] = hex_str[len - i - 1];
+		hex_str[len - i - 1] = temp;
+		i++;
 	}
-	return (z);
+	return (_printstr(hex_str));
 }
 /**
  * _print_hex - receives a decimal and prints a hexadecimal
