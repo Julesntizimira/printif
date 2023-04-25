@@ -47,18 +47,16 @@ int hexUpper(unsigned int num)
  */
 int _printptr(va_list args)
 {
-	void *ptr = NULL;
-
-	ptr = va_arg(args, void *);
-
-	if (ptr == NULL)
-		return (0);
+	void *ptr = va_arg(args, void *);
 	unsigned long int num = (unsigned long int)ptr;
 	char hex_digits[] = "0123456789abcdef";
 	char hex_string[17] = {'\0'};
 	int i = 0, z = 0, j;
 
-
+	if (ptr == NULL)
+	{
+		return (_printstr("(null)"));
+	}
 	if (num == 0)
 	{
 		hex_string[i++] = '0';
