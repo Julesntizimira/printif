@@ -114,7 +114,7 @@ int _nonprintchars(char *s)
 	int j = 0, i = 0;
 
 	if (s == NULL)
-		exit(1);
+		return (_printstr("(null)"));
 	while (s[j] != '\0')
 	{
 		if (s[j] < 32 || s[j] >= 127)
