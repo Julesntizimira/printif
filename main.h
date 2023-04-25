@@ -35,7 +35,7 @@ int _print_hex1(va_list args);
 int _print_hexUpper(va_list args);
 int charhandler(va_list args);
 int strhandler(va_list args);
-int hexUpper(int num);
+int hexUpper(unsigned int num);
 int _printf(const char *format, ...);
 int printhandler(va_list args, const char *format, int i);
 void print_buffer(char buffer[], int *buff_ind);
