@@ -55,7 +55,8 @@ int _printptr(va_list args)
 
 	if (ptr == NULL)
 	{
-		return (0);
+
+		return (_printstr("null"));
 	}
 	if (num == 0)
 	{
