@@ -4,7 +4,7 @@
  * @num: input decimal
  * Return: numbner of characters printed
  */
-int hexUpper(int num)
+int hexUpper(unsigned int num)
 {
 	char hex_str[9];
 	char temp;
