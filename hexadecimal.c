@@ -41,17 +41,22 @@ int hexUpper(unsigned int num)
 	return (_printstr(hex_str));
 }
 /**
- * _print_hex - receives a decimal and prints a hexadecimal
+ * _printptr - receives a decimal and prints a hexadecimal
  * @args: va_list argument input decimal
  * Return: numbner of characters printed
  */
-int _print_hex(va_list args)
+int _printptr(va_list args)
 {
 	void *ptr = va_arg(args, void *);
+
+	if (ptr == NULL)
+		return (0);
+
 	unsigned long int num = (unsigned long int)ptr;
 	char hex_digits[] = "0123456789abcdef";
 	char hex_string[17] = {'\0'};
 	int i = 0, z = 0, j;
+
 
 	if (num == 0)
 	{

@@ -30,7 +30,7 @@ int _printbinary(int n);
 int _binaryT(va_list args);
 int _print_octal(unsigned int n);
 int _printoctal(va_list args);
-int _print_hex(va_list args);
+int _printptr(va_list args);
 int _print_hex1(va_list args);
 int _print_hexUpper(va_list args);
 int charhandler(va_list args);
