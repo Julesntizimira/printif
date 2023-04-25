@@ -133,7 +133,7 @@ int _nonprinthandler(va_list args)
 	s = va_arg(args, char *);
 
 	if (s == NULL)
-		return (_printstr("(null)"));
+		return (_printstr("(nil)"));
 
 	len = _strlen(s);
 	for (j = 0; j < len; j++)
