@@ -76,10 +76,33 @@ int _printint(va_list args)
  */
 int _printUint(va_list args)
 {
-	int i = 0;
-	unsigned int n = va_arg(args, unsigned int);
+	unsigned int num = va_arg(args, unsigned int);
+	char dec_str[11];
+	char temp;
+	int i = 0, digit, len;
 
-	i += _print_Uint(n);
-	return (i - 1);
+	if (num == 0)
+	{
+		dec_str[i++] = '0';
+	}
+	else
+	{
+		while (num > 0)
+		{
+			digit = num % 10;
+			dec_str[i++] = '0' + digit;
+			num /= 10;
+		}
+	}
+	dec_str[i] = '\0';
+	len = i;
+	i = 0;
+	while (i < len / 2)
+	{
+		temp = dec_str[i];
+		dec_str[i] = dec_str[len - i - 1];
+		dec_str[len - i - 1] = temp;
+		i++;
+	}
+	return (_printstr(dec_str));
 }
-
