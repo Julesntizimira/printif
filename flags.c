@@ -9,14 +9,25 @@
  */
 int printplus(va_list args, const char *format, int i)
 {
-	int num = va_arg(args, int);
+	int num;
+	char prefix = '\0';
 
-	(void)format;
-	(void)i;
-	if (num >= 0)
-		return (_print('+'));
-	else
-		return (-1);
+	switch (format[i + 1])
+	{
+		case 'd':
+		case 'i':
+			num = va_arg(args, int);
+			prefix = (num >= 0) ? '+' : '\0';
+			break;
+		default:
+			return (-1);
+	}
+	if (prefix != '\0')
+	{
+		return (_print(prefix));
+	}
+	return (0);
+
 }
 /**
  * printspace - handle printing
@@ -47,23 +58,23 @@ int printspace(va_list args, const char *format, int i)
 int printhash(va_list args, const char *format, int i)
 {
 	int k = 0;
+	char *prefix = "";
 
 	(void)args;
 	switch (format[i + 1])
 	{
 		case 'o':
-			_print('0');
-			k++;
+			prefix = "0";
 			break;
 		case 'x':
-			k += _printstr("0x");
+			prefix = "0x";
 			break;
 		case 'X':
-			k += _printstr("0X");
+			prefix = "0X";
 			break;
 		default:
-			k += -1;
-			break;
+			return (-1);
 	}
+	k += _printstr(prefix);
 	return (k);
 }
