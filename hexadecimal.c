@@ -116,43 +116,36 @@ int _print_hexUpper(va_list args)
 	return (_printstr(hex_str));
 }
 /**
- * _nonprintchars - receives a nonprintable character and prints UPPERCASE hex
- * @s: input
- * Return: numbner of characters printed
- */
-int _nonprintchars(char *s)
-{
-	int j = 0, i = 0;
-
-	if (s == NULL)
-		return (_printstr("(null)"));
-	while (s[j] != '\0')
-	{
-		if (s[j] < 32 || s[j] >= 127)
-		{
-			i += _print('\\');
-			i += _print('x');
-			if (s[j] < 16)
-				i += _print('0');
-			i += hexUpper(s[j]);
-			j++;
-		}
-		i += _print(s[j]);
-		j++;
-	}
-	return (i);
-}
-/**
  * _nonprinthandler - receives a nonprintable characterandprintsUPPERCASE hex
  * @args: va_list argument input
  * Return: numbner of characters printed
  */
 int _nonprinthandler(va_list args)
 {
-	int k = 0;
+	int i = 0, j = 0, len = 0;
 	char *s = NULL;
 
 	s = va_arg(args, char *);
-	k += _nonprintchars(s);
-	return (k);
+
+	if (s == NULL)
+		return (_printstr("(null)"));
+
+	len = _strlen(s);
+	for (j = 0; j < len; j++)
+	{
+		if (s[j] < 32 || s[j] >= 127)
+		{
+			_print('\\');
+			_print('x');
+			if (s[j] < 16)
+			{
+				_print('0');
+			}
+			hexUpper(s[j]);
+			i += 4;
+		}
+		else
+			i += _print(s[j]);
+	}
+	return (i);
 }
