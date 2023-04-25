@@ -131,7 +131,8 @@ int _print_hex1(va_list args, int flags, int width, int precision, int size)
 	{
 		_print('0');
 		_print('x');
+		printed += 2;
 	}
 	printed += _printstr(hex_str);
-	return (printed + 2);
+	return (printed);
 }
