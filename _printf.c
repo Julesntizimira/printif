@@ -11,13 +11,12 @@ int _printf(const char *format, ...)
 	int i = 0, k = 0;
 	int size = 0, precision = 0, width = 0;
 	va_list args;
-	int buff_ind = 0, flags;
+	int buff_ind = 0, flags = 0;
 	char buffer[BUFFER_SIZE];
 
 	va_start(args, format);
 	if (!format)
 		return (-1);
-
 	while (format[i] != '\0')
 	{
 		if (format[i] != '%')
