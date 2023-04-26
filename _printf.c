@@ -27,7 +27,7 @@ int _printf(const char *format, ...)
 				print_buffer(buffer, &buff_ind);
 			k++;
 		}
-		else if (format[i] == '%')
+		else
 		{
 			print_buffer(buffer, &buff_ind);
 			if (format[i + 1] == '\0')
