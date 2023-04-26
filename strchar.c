@@ -65,9 +65,7 @@ int charhandler(va_list args, int flags, int width, int precision, int size)
 	(void)size;
 	(void)flags;
 
-	if (c == '\0')
-		return (0);
-	_print(c);
+	write(1, &c, 1);
 	return (1);
 }
 /**
