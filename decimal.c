@@ -96,7 +96,10 @@ int _printUint(va_list args, int flags, int width, int precision, int size)
 	unsigned int num = va_arg(args, unsigned int);
 	char dec_str[11];
 	char temp;
-	int i = 0, digit, len;
+	int i = 0, digit, k = 0, len;
+
+	if (flags & F_SPACE)
+		k += _print(' ');
 
 	(void)flags;
 	(void)width;
@@ -125,5 +128,6 @@ int _printUint(va_list args, int flags, int width, int precision, int size)
 		dec_str[len - i - 1] = temp;
 		i++;
 	}
-	return (_printstr(dec_str));
+	k += _printstr(dec_str);
+	return (k);
 }
