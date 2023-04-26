@@ -1,14 +1,7 @@
 # include "main.h"
-/**
- * _print - functino that prints charcter
- * @c: character to be printed
- * Return: 1
- */
-int _print(int c)
-{
-	write(1, &c, 1);
-	return (1);
-}
+
+
+
 /**
  * _printmod - prints only '%' char
  * @args: va_list variable type
@@ -95,4 +88,40 @@ int strhandler(va_list args, int flags, int width, int precision, int size)
 	}
 	k += _printstr(s);
 	return (k);
+}
+/**
+ * reverse - function that prints string rev
+ * @args: va_list type argument
+ * @flags: Flags
+ * @width: width
+ * @precision: precision
+ * @size: size
+ *
+ * Return: number of characters printed
+ */
+int reverse(va_list args, int flags, int width, int precision, int size)
+{
+	int len;
+	char *s = NULL;
+
+	(void)width;
+	(void)precision;
+	(void)size;
+	(void)flags;
+
+	s = va_arg(args, char *);
+	if (s == NULL)
+	{
+		s = "(null)";
+		return (_printstr(s));
+	}
+	len = _strlen(s);
+	len--;
+	while (len >= 0)
+	{
+		_print(s[len]);
+		len--;
+	}
+	return (_strlen(s));
+
 }

@@ -50,4 +50,5 @@ void print_buffer(char buffer[], int *buff_ind);
 int _nonprinthandler(va_list args,
 		int flags, int width, int precision, int size);
 int __nonprintchars(char *s);
+int reverse(va_list args, int flags, int width, int precision, int size);
 # endif

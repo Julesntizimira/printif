@@ -64,7 +64,8 @@ int printhandler(va_list args, const char *format,
 		{'%', _printmod}, {'b', _binaryT},
 		{'u', _printUint}, {'o', _printoctal},
 		{'x', _print_hex1}, {'X', _print_hexUpper},
-		{'S', _nonprinthandler}, {'p', _printptr}
+		{'S', _nonprinthandler}, {'p', _printptr},
+		{'r', reverse}
 	};
 	for (j = 0; j < sizeof(fmt) / sizeof(fmt[0]); j++)
 	{
