@@ -79,7 +79,7 @@ int _printint(va_list args, int flags, int width, int precision, int size)
 
 	else if (flags & F_SPACE && n >= 0)
 		i += _print(' ');
-	i = _print_int(n);
+	i += _print_int(n);
 	return (i - 1);
 }
 /**
